@@ -16,11 +16,11 @@
         $test = count($csv);
         for($i = 0;$i < $test;$i++){
             $test2 = count($csv[$i]);
-            echo '<tr>';
+            print '<tr>';
             for($x = 0;$x < $test2;$x++){
-                echo '<td>'.$csv[$i][$x].'</td>';
+                print '<td>'.$csv[$i][$x].'</td>';
             }
-            echo '</tr>';
+            print '</tr>';
         }
         flock($handle, LOCK_UN);
         fclose($handle);
