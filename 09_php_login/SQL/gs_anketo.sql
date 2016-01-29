@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: 2016 年 1 月 21 日 11:08
+-- Generation Time: 2016 年 1 月 29 日 13:22
 -- サーバのバージョン： 5.5.42
 -- PHP Version: 7.0.0
 
@@ -39,9 +39,7 @@ INSERT INTO `gs_an_table2` (`id`, `name`, `email`, `age`, `comment`, `indate`) V
 (4, 'かなこ↑↑', 'kanakodayo@momoclo.co.jp', 20, 'かなよだよ', '2016-01-11 21:16:26'),
 (5, 'ももか', 'momoka', 35, 'ももかだよ', '2016-01-11 21:25:39'),
 (6, 'れに', 'renirei', 22, 'れにれにだよ', '2016-01-11 21:31:07'),
-(7, 'しおりん', 'shiorin@momoclo.co.jp', 20, 'しおりんだよ', '2016-01-12 09:28:52'),
-(8, 'あーりん', 'a-rindayo@momoclo.co.jp', 20, 'あーりんだよ', '2016-01-12 19:55:07'),
-(13, 'のぶなが', 'nobunaga@gmail.com', 50, '本能寺！', '2016-01-18 13:38:43');
+(7, 'しおりん', 'shiorin@momoclo.co.jp', 20, 'しおりんだよ', '2016-01-12 09:28:52');
 
 --
 -- Indexes for dumped tables
