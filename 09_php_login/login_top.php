@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <br /> ログイン
+    <br /> ログインする
     <br />
     <br />
     <form method="post" action="login_check.php">

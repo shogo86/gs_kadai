@@ -32,9 +32,12 @@ else
         <div id="wrapper">
             <h1>アンケート</h1>
             <a href="input_enq.php">アンケートに答える</a>
-            <a href="select.php">アンケートの結果を見る</a>
+            <a href="branch.php">アンケートの結果を見る</a>
             </ul>
         </div>
+        <br />
+        <br />
+        <a href="logout.php">ログアウトする</a>
     </body>
 
     </html>

@@ -13,6 +13,7 @@
     $email=$_POST['email'];
     $pass=$_POST['pass'];
     $pass2=$_POST['pass2'];
+    $kanri=$_POST['kanri'];
     
     $name=htmlspecialchars($name);
     $email=htmlspecialchars($email);
@@ -67,6 +68,7 @@
         print '<input type="hidden" name="name" value="'.$name.'">';
         print '<input type="hidden" name="email" value="'.$email.'">';
         print '<input type="hidden" name="pass" value="'.$pass.'">';
+        print '<input type="hidden" name="kanri" value="'.$kanri.'">';
         print '<br />';
         print '<input type="button" onclick="history.back()" value="戻る">';
         print '<input type="submit" value="OK">';

@@ -15,6 +15,7 @@
         $name=$_POST['name'];
         $email=$_POST['email'];
         $pass=$_POST['pass'];
+        $kanri=$_POST['kanri'];
         //入力データのサニタイジング
         $email=htmlspecialchars($email);
         $pass=htmlspecialchars($pass);
@@ -27,11 +28,12 @@
         $dbh->query('SET NAMES utf8');
         
         //SQLを使ってデータの追加
-        $sql='INSERT INTO gs_login(name,email,password) VALUES (?,?,?)';
+        $sql='INSERT INTO gs_login(name,email,password,kanri_flg) VALUES (?,?,?,?)';
         $stmt=$dbh->prepare($sql);
         $data[]=$name;
         $data[]=$email;
         $data[]=$pass;
+        $data[]=$kanri;
         $stmt->execute($data);
         
         //DB接続を切断

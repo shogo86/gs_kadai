@@ -45,6 +45,7 @@ try
         $_SESSION['login']=1;
         $_SESSION['email']=$email;
         $_SESSION['name']=$rec['name'];
+        $_SESSION['kanri']=$rec['kanri_flg'];
         header('Location:index.php');
         
     }

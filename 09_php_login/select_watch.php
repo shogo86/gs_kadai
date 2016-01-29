@@ -13,7 +13,7 @@ else
     print $_SESSION['name'];
     print '様';
     print '<br />';
-    print '管理者用画面';
+    print 'ユーザー用画面';
     
 }
 
@@ -80,8 +80,6 @@ $flag = $stmt->execute();
                     <th>年齢</th>
                     <th>コメント</th>
                     <th>登録日時</th>
-                    <th>更新</th>
-                    <th>削除</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,8 +94,6 @@ $flag = $stmt->execute();
     echo "<td>{$result['age']}</td>";
     echo "<td>{$result['comment']}</td>";
     echo "<td>{$result['indate']}</td>";
-    echo "<td><a href='update.php?id={$code}' class='update'>更新</a></td>";
-    echo "<td><a href='delete.php?id={$code}' class='delete'>削除</a></td>";
     echo '</tr>';
     }
 ?>
