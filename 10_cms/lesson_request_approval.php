@@ -5,8 +5,10 @@ $id=$_SESSION['id'];
 $main=$_SESSION['main'];
 $sub=$_SESSION['sub'];
 
-$userid=$_GET['useid'];
-$lessonid=$_GET['lessonid'];
+$lesson_id=$_GET['lesson_id'];
+$request_user_id=$_GET['request_user_id'];
+$request_lesson_id=$_GET['request_lesson_id'];
+
 
 //自作関数の読み込み
 require_once('function/function.php');
@@ -33,7 +35,7 @@ $stmt = $pdo->query('SET NAMES utf8');
 
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare("SELECT * FROM lesson WHERE id=$lessonid");
+$stmt = $pdo->prepare("SELECT * FROM lesson WHERE id=$lesson_id");
 
 //４．SQL実行
 $flag = $stmt->execute();
@@ -94,7 +96,7 @@ $flag = $stmt->execute();
                         $stmt_user = $pdo->query('SET NAMES utf8');
 
                         //３．データ登録SQL作成
-                        $stmt_user = $pdo->prepare("SELECT * FROM user WHERE id=$userid");
+                        $stmt_user = $pdo->prepare("SELECT * FROM user WHERE id=$request_user_id");
 
                         //４．SQL実行
                         $flag = $stmt_user->execute();
@@ -116,11 +118,19 @@ $flag = $stmt->execute();
                         print '<p class="desc">'.'レッスン時間：'.$time_jp.'</p>';
                         print '<br />';
                         
-                        //OKボタンを押したらレッスンデータの登録を行う
-                        print '<form method="post" action="lesson_request_done.php">';
-                        print '<input type="hidden" name="userid" value="'.$userid.'">';
-                        print '<input type="hidden" name="lessonid" value="'.$lessonid.'">';
-                        print '<input type="submit" value="リクエストを送る">';
+                        //OKボタンを押したらマッチングフラグの登録を行う
+                        print '<form method="post" action="lesson_request_approval_done.php">';
+                        print '<input type="hidden" name="matching" value="1">';
+                        print '<input type="hidden" name="request_lesson_id" value="'.$request_lesson_id.'">';
+                        print '<input type="submit" value="リクエスト承認する">';
+                        print '</form>';
+                        print '<br />';
+                        print '<br>';
+                        //NGボタンを押したらマッチングフラグの拒否を行う
+                        print '<form method="post" action="lesson_request_approval_done.php">';
+                        print '<input type="hidden" name="matching" value="2">';
+                        print '<input type="hidden" name="request_lesson_id" value="'.$request_lesson_id.'">';
+                        print '<input type="submit" value="リクエストを拒否する">';
                         print '</form>';
                         print '</div>';
                         

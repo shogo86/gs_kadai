@@ -22,6 +22,7 @@ else
     
 }
 
+//自分のレッスン情報の取り出し
 //1.  DB接続します
   $pdo = new PDO('mysql:dbname=language_db;host=localhost','root','root');
 
@@ -70,9 +71,10 @@ $flag_lesson = $stmt_lesson->execute();
         </header>
         <div class="wrapper clearfix">
             <main class="main">
+                <h2>レッスン情報</h2>
                 <?php
                 
-    //5.表示文字列を作成→変数に追記で代入
+                //レッスン情報
                 while($result_lesson = $stmt_lesson->fetch(PDO::FETCH_ASSOC)){
                         $lesson_id=$result_lesson['id'];
                         $lesson_title=$result_lesson['title'];
@@ -92,9 +94,13 @@ $flag_lesson = $stmt_lesson->execute();
                     //SQL実行
                     $flag_lesson_request = $stmt_lesson_request->execute();
 
-                    //レッスンへのリクエストしている人
+                    //自分のレッスンへリクエストしている人
                     $result_lesson_request = $stmt_lesson_request->fetch(PDO::FETCH_ASSOC);
-                        $request_user_id=$result_lesson_request['request_user_id'];
+                    $request_lesson_id=$result_lesson_request['id'];
+                    $request_user_id=$result_lesson_request['request_user_id'];
+                    
+                    //マッチングフラグ
+                    $matching = $result_lesson_request['matching'];
                     
                 //レッスンリクエストのユーザー情報抽出
                     //DB文字コードを指定（固定）
@@ -109,20 +115,52 @@ $flag_lesson = $stmt_lesson->execute();
                     //ユーザー情報の抽出
                     $result_request_user = $stmt_request_user->fetch(PDO::FETCH_ASSOC);
                     $request_user_name = $result_request_user['name'];
+                    $request_user_picture = $result_request_user['picture'];
                     
-                    
-                    
-                
-                    //レッスン情報の表示
-                        print '<div class="article-box">';
+                    //マッチングしているレッスン情報の表示
+                    if($matching==1)
+                    {
+                        print '<div class="article-box-mylesson">';
                         print '<p class="desc">'.'タイトル：'.$lesson_title.'</p>';
                         print '<p class="desc">'.'開始時間：'.$lesson_start.'</p>';
                         print '<p class="desc">'.'レッスン時間：'.$lesson_time_jp.'</p>';
                         print '<p class="desc">'.'場所：'.$lesson_location.'</p>';
                         print '<p class="desc">'.'詳細：'.$lesson_detail.'</p>';
-                        print '<p class="desc">'.'リクエストしている人：'.$request_user_name.'</p>';
-                        print "<a href='update.php'>更新する</a>";
+                        print '<img class="image" src="./picture/'.$request_user_picture.'">';
+                        print '<p class="text_matching">参加予定</p>';
                         print '</div>';
+                    }else{
+                    //マッチングしていないレッスン情報の表示
+                        //リクエストしている人がいない場合
+                        
+                     if(isset($request_user_id)==false)
+                    {
+                        print '<div class="article-box-mylesson">';
+                        print '<p class="desc">'.'タイトル：'.$lesson_title.'</p>';
+                        print '<p class="desc">'.'開始時間：'.$lesson_start.'</p>';
+                        print '<p class="desc">'.'レッスン時間：'.$lesson_time_jp.'</p>';
+                        print '<p class="desc">'.'場所：'.$lesson_location.'</p>';
+                        print '<p class="desc">'.'詳細：'.$lesson_detail.'</p>';
+                        print '<p class="text_no_matching">リクエスト待ち</p>';
+                        print '</div>';
+                    }
+                    else
+                        //リクエストしている人がいる場合
+                    {
+                        print '<div class="article-box-mylesson">';
+                        print '<p class="desc">'.'タイトル：'.$lesson_title.'</p>';
+                        print '<p class="desc">'.'開始時間：'.$lesson_start.'</p>';
+                        print '<p class="desc">'.'レッスン時間：'.$lesson_time_jp.'</p>';
+                        print '<p class="desc">'.'場所：'.$lesson_location.'</p>';
+                        print '<p class="desc">'.'詳細：'.$lesson_detail.'</p>';
+                        print '<p class="desc">リクエストしている人</p>';
+                        print "<a href='lesson_request_approval.php?lesson_id={$lesson_id}&request_user_id={$request_user_id}&request_lesson_id={$request_lesson_id}'>$request_user_name</a>";
+                        print '<img class="image" src="./picture/'.$request_user_picture.'">';
+                        print '<p class="text_no_matching">リクエスト待ち</p>';
+                        print '</div>';
+                    }  
+                    }
+                    
                     }
                 ?>
             </main>
@@ -145,6 +183,7 @@ $flag_lesson = $stmt_lesson->execute();
                         $sub_jp=sub($sub);
                         //画像の表示
                         $picture=$result['picture'];
+                        print '<h2>プロフィール</h2>';
                         print '<div class="article-box">';
                         print '<img class="image" src="./picture/'.$picture.'">';
                         print '<p class="desc">'.'名前：'.$name.'</p>';
@@ -158,12 +197,6 @@ $flag_lesson = $stmt_lesson->execute();
                         print '</div>';
                     }
                 ?>
-
-
-                    </tbody>
-                    </table>
-                    <br />
-                    <br />
             </main>
         </div>
         <footer class="footer">

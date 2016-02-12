@@ -31,7 +31,7 @@ $stmt = $pdo->query('SET NAMES utf8');
 
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare("SELECT * FROM lesson");
+$stmt = $pdo->prepare("SELECT * FROM lesson ORDER BY start_time");
 
 //４．SQL実行
 $flag = $stmt->execute();
@@ -82,6 +82,7 @@ $flag = $stmt->execute();
                         $time=$result['time'];
                         $time_jp=jikan($time);
                         $userid=$result['user_id'];
+                        $location=$result['location'];
 
                     //1.  DB接続します
                         $pdo = new PDO('mysql:dbname=language_db;host=localhost','root','root');
@@ -110,8 +111,10 @@ $flag = $stmt->execute();
                         print '<p class="desc">'.'学びたい言語：'.$sub_jp.'</p>';   
                         print '<p class="desc">'.$start.'</p>';
                         print '<p class="desc">'.'レッスン時間：'.$time_jp.'</p>';
+                        print '<p class="desc">'.'場所：'.$location.'</p>';
                         print '<br />';
-                        print "<a href='lesson_confirm.php?userid={$userid}&lessonid={$lessonid}'>参加する</a>";
+                        print '<br />';
+                        print "<a class='btn' href='lesson_confirm.php?userid={$userid}&lessonid={$lessonid}'>参加する</a>";
                         print '</div>';
                         
                     }
@@ -126,8 +129,8 @@ $flag = $stmt->execute();
             <ul class="horizontal-list">
                 <li class="horizontal-item"><a href="#">ABOUT ME</a></li>
                 <li class="horizontal-item"><a href="#">SITE MAP</a></li>
-                <li class="horizontal-item"><a href="#">SNS</a></li>
                 <li class="horizontal-item"><a href="#">CONTACT</a></li>
+                <li class="horizontal-item"><a href="logout.php">ログアウト</a></li>
             </ul>
             <p class="copyright">Copyright © 2015 SAMPLE SITE</p>
         </footer>
